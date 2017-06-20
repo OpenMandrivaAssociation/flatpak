@@ -14,7 +14,7 @@
 
 Name:           flatpak
 Version:        0.8.7
-Release:        1
+Release:        2
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPLv2+
@@ -46,6 +46,8 @@ BuildRequires:  bubblewrap >= %{bubblewrap_version}
 
 # Needed for the document portal.
 Requires:       fuse
+# TLS support
+Requires:	glib-networking
 
 # Needed for confinement
 Requires:       bubblewrap >= %{bubblewrap_version}
