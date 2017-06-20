@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        0.8.2
+Version:        0.8.7
 Release:        1
 Summary:        Application deployment framework for desktop apps
 
