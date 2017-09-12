@@ -16,7 +16,7 @@ Name:           flatpak
 Version:        0.8.7
 Release:        2
 Summary:        Application deployment framework for desktop apps
-
+Group:        	System/Base
 License:        LGPLv2+
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
