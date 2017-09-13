@@ -38,7 +38,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  intltool
 BuildRequires:  attr-devel
 BuildRequires:  libcap-devel
-BuildRequires:  dwarf-devel
+BuildRequires:  libdwarf-devel
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  xsltproc
 BuildRequires:  xmlto
