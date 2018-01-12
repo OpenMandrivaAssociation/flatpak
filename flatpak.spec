@@ -7,14 +7,14 @@
 %global devname %mklibname %{name} -d
 
 # Minimum dependent components
-%global bubblewrap_version 0.1.7
-%global ostree_version 2017.1
+%global bubblewrap_version 0.1.8
+%global ostree_version 2017.14
 
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        0.8.7
-Release:        2
+Version:        0.10.2.1
+Release:        1
 Summary:        Application deployment framework for desktop apps
 Group:        	System/Base
 License:        LGPLv2+
@@ -28,6 +28,7 @@ BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libelf) >= 0.8.12
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
+BuildRequires:	pkgconfig(appstream-glib) >= 0.5.10
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(xau)
@@ -61,21 +62,6 @@ Requires:       %{girlib} = %{version}-%{release}
 flatpak is a system for building, distributing and running sandboxed desktop
 applications on Linux. See https://wiki.gnome.org/Projects/SandboxedApps for
 more information.
-
-%package builder
-Summary:        Build helper for %{name}
-License:        LGPLv2+
-Requires:       %{name} = %{version}-%{release}
-Requires:       bzr
-Requires:       git-core
-Requires:       patch
-Requires:       binutils
-Requires:       tar
-Requires:       unzip
-
-%description builder
-flatpak-builder is a tool that makes it easy to build applications and their
-dependencies by automating the configure && make && make install steps.
 
 %package -n %{devname}
 Summary:        Development files for %{name}
@@ -139,6 +125,7 @@ flatpak remote-list --system &> /dev/null || :
 
 %files -f %{name}.lang
 %{_bindir}/flatpak
+%{_bindir}/flatpak-bisect
 %{_datadir}/bash-completion
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Documents.xml
@@ -163,7 +150,8 @@ flatpak remote-list --system &> /dev/null || :
 %{_mandir}/man5/%{name}-metadata.5*
 %{_mandir}/man5/%{name}-flatpakref.5*
 %{_mandir}/man5/%{name}-flatpakrepo.5*
-%exclude %{_mandir}/man1/flatpak-builder.1*
+%{_mandir}/man5/%{name}-installation.5*
+%{_mandir}/man5/%{name}-remote.5*
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_systemunitdir}/flatpak-system-helper.service
@@ -172,11 +160,6 @@ flatpak remote-list --system &> /dev/null || :
 %{_userunitdir}/xdg-permission-store.service
 # Co-own directory.
 %{_userunitdir}/dbus.service.d
-
-
-%files builder
-%{_bindir}/flatpak-builder
-%{_mandir}/man1/flatpak-builder.1*
 
 %files -n %{devname}
 %doc COPYING
