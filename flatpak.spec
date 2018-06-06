@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        0.10.2.1
+Version:        0.11.7
 Release:        1
 Summary:        Application deployment framework for desktop apps
 Group:        	System/Base
@@ -115,7 +115,6 @@ This package contains libflatpak GObject libraries.
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
-rm -f %{buildroot}%{_libdir}/libflatpak.la
 
 %find_lang %{name}
 
@@ -126,50 +125,37 @@ flatpak remote-list --system &> /dev/null || :
 %files -f %{name}.lang
 %{_bindir}/flatpak
 %{_bindir}/flatpak-bisect
-%{_datadir}/bash-completion
-%{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak.xml
-%{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Documents.xml
-%{_datadir}/dbus-1/interfaces/org.freedesktop.impl.portal.PermissionStore.xml
-%{_datadir}/dbus-1/services/org.freedesktop.Flatpak.service
-%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.PermissionStore.service
-%{_datadir}/dbus-1/services/org.freedesktop.portal.Documents.service
-%{_datadir}/dbus-1/system-services/org.freedesktop.Flatpak.SystemHelper.service
-# Co-own directory.
-%{_datadir}/gdm/env.d
-%{_datadir}/%{name}
-%{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.policy
-%{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.rules
-%{_libexecdir}/flatpak-dbus-proxy
-%{_libexecdir}/flatpak-session-helper
 %{_libexecdir}/flatpak-system-helper
-%{_libexecdir}/xdg-document-portal
-%{_libexecdir}/xdg-permission-store
-%dir %{_localstatedir}/lib/flatpak
-%dir %{_sysconfdir}/flatpak/remotes.d
-%{_mandir}/man1/%{name}*.1*
-%{_mandir}/man5/%{name}-metadata.5*
-%{_mandir}/man5/%{name}-flatpakref.5*
-%{_mandir}/man5/%{name}-flatpakrepo.5*
-%{_mandir}/man5/%{name}-installation.5*
-%{_mandir}/man5/%{name}-remote.5*
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
+%{_libexecdir}/flatpak-session-helper
+%{_libexecdir}/flatpak-portal
+%{_libexecdir}/flatpak-dbus-proxy
+%{_datadir}/bash-completion/completions/flatpak
+%{_datadir}/flatpak
+%{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak*
+%{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Flatpak*
+%{_datadir}/dbus-1/system-services/org.freedesktop.Flatpak*
+%{_datadir}/dbus-1/services/org.freedesktop.Flatpak.*
+%{_datadir}/dbus-1/services/org.freedesktop.portal.Flatpak.*
+%{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
+%{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
+%{_mandir}/man1/flatpak*.1*
+%{_mandir}/man5/flatpak*.5*
+%{_localstatedir}/lib/flatpak
+%{_prefix}/lib/systemd/user/flatpak*.service
+%{_prefix}/lib/systemd/user/dbus.service.d/flatpak.conf
+/lib/systemd/system/flatpak*.service
 %{_sysconfdir}/profile.d/flatpak.sh
-%{_systemunitdir}/flatpak-system-helper.service
-%{_userunitdir}/flatpak-session-helper.service
-%{_userunitdir}/xdg-document-portal.service
-%{_userunitdir}/xdg-permission-store.service
-# Co-own directory.
-%{_userunitdir}/dbus.service.d
+%{_sysconfdir}/flatpak
+%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
+# FIXME this probably needs to move to where sddm can see it?
+%{_datadir}/gdm
+%doc %{_docdir}/%{name}
 
 %files -n %{devname}
-%doc COPYING
-%doc NEWS README.md
-%doc %{_pkgdocdir}
-%{_datadir}/gir-1.0/Flatpak-%{girapi}.gir
-%{_datadir}/gtk-doc/
-%{_includedir}/%{name}/
-%{_libdir}/libflatpak.so
-%{_libdir}/pkgconfig/%{name}.pc
+%{_includedir}/flatpak
+%{_libdir}/lib*.so
+%{_libdir}/pkgconfig/*.pc
+%doc %{_datadir}/gtk-doc/html/flatpak
 
 %files -n %{libname}
 %{_libdir}/libflatpak.so.%{libmajor}
@@ -177,3 +163,4 @@ flatpak remote-list --system &> /dev/null || :
 
 %files -n %{girlib}
 %{_libdir}/girepository-1.0/Flatpak-%{girapi}.typelib
+%{_datadir}/gir-1.0/Flatpak-%{girapi}.gir
