@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        0.11.7
+Version:        0.11.8.2
 Release:        1
 Summary:        Application deployment framework for desktop apps
 Group:        	System/Base
@@ -40,11 +40,15 @@ BuildRequires:  intltool
 BuildRequires:  attr-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libdwarf-devel
-BuildRequires:  pkgconfig(systemd)
+BuildRequires:  gpgme-devel
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  systemd
 BuildRequires:  xsltproc
 BuildRequires:  xmlto
+BuildRequires:  bison
+BuildRequires:  byacc
 BuildRequires:  bubblewrap >= %{bubblewrap_version}
-
+Requires(post):       rpm-helper
 # Needed for the document portal.
 Requires:       fuse
 # TLS support
@@ -104,7 +108,7 @@ This package contains libflatpak GObject libraries.
  # User namespace support is sufficient.
 
 %configure --with-dwarf-header=%{_includedir}/libdwarf --with-priv-mode=none \
-	--with-systemdsystemunitdir=%{_unitdir} \
+	--with-systemdsystemunitdir=%{_systemunitdir} \
                  --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
 %make V=1
@@ -143,7 +147,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_localstatedir}/lib/flatpak
 %{_prefix}/lib/systemd/user/flatpak*.service
 %{_prefix}/lib/systemd/user/dbus.service.d/flatpak.conf
-/lib/systemd/system/flatpak*.service
+%{_systemunitdir}/flatpak*.service
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/flatpak
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
