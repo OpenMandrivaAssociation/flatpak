@@ -134,6 +134,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-portal
 %{_libexecdir}/flatpak-dbus-proxy
 %{_datadir}/bash-completion/completions/flatpak
+%{_datadir}/zsh/site-functions/_flatpak
 %{_datadir}/flatpak
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak*
 %{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Flatpak*
