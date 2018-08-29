@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        0.11.8.2
+Version:        1.0.1
 Release:        1
 Summary:        Application deployment framework for desktop apps
 Group:        	System/Base
@@ -129,6 +129,7 @@ flatpak remote-list --system &> /dev/null || :
 %files -f %{name}.lang
 %{_bindir}/flatpak
 %{_bindir}/flatpak-bisect
+%{_bindir}/flatpak-coredumpctl
 %{_libexecdir}/flatpak-system-helper
 %{_libexecdir}/flatpak-session-helper
 %{_libexecdir}/flatpak-portal
