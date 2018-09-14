@@ -20,7 +20,8 @@ Group:        	System/Base
 License:        LGPLv2+
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
-
+Source1:        flatpak-init.service
+Source2:        flatpak.tmpfiles
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
@@ -119,6 +120,14 @@ This package contains libflatpak GObject libraries.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
 
+install -m 0644 %{SOURCE1} -D %{buildroot}%{_systemunitdir}/flatpak-init.service
+install -m 0644 %{SOURCE2} -D %{buildroot}%{_tmpfilesdir}/flatpak.conf
+
+install -d %{buildroot}%{_presetdir}
+cat > %{buildroot}%{_presetdir}/86-%{name}.preset << EOF
+enable %{name}-init.service
+EOF
+
 %find_lang %{name}
 
 %post
@@ -146,6 +155,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_mandir}/man1/flatpak*.1*
 %{_mandir}/man5/flatpak*.5*
 %{_localstatedir}/lib/flatpak
+%{_presetdir}/86-%{name}.preset
 %{_userunitdir}/flatpak*.service
 %{_userunitdir}/dbus.service.d/flatpak.conf
 %{_systemunitdir}/flatpak*.service

@@ -1,0 +1,9 @@
+[Unit]
+Description=Init system-wide flatpak repository
+
+[Service]
+Type=simple
+ExecStart=flatpak remote-list --system
+
+[Install]
+WantedBy=multi-user.target
