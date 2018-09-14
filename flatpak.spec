@@ -108,7 +108,7 @@ This package contains libflatpak GObject libraries.
  # User namespace support is sufficient.
 
 %configure --with-dwarf-header=%{_includedir}/libdwarf --with-priv-mode=none \
-	--with-systemdsystemunitdir=%{_systemunitdir} \
+	--with-systemdsystemunitdir=%{_unitdir} \
                  --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
 %make_build V=1
@@ -120,7 +120,7 @@ This package contains libflatpak GObject libraries.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
 
-install -m 0644 %{SOURCE1} -D %{buildroot}%{_systemunitdir}/flatpak-init.service
+install -m 0644 %{SOURCE1} -D %{buildroot}%{_unitdir}/flatpak-init.service
 install -m 0644 %{SOURCE2} -D %{buildroot}%{_tmpfilesdir}/flatpak.conf
 
 install -d %{buildroot}%{_presetdir}
@@ -158,7 +158,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_presetdir}/86-%{name}.preset
 %{_userunitdir}/flatpak*.service
 %{_userunitdir}/dbus.service.d/flatpak.conf
-%{_systemunitdir}/flatpak*.service
+%{_unitdir}/flatpak*.service
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/flatpak
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
