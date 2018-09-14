@@ -159,6 +159,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_userunitdir}/flatpak*.service
 %{_userunitdir}/dbus.service.d/flatpak.conf
 %{_unitdir}/flatpak*.service
+%{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/flatpak
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
