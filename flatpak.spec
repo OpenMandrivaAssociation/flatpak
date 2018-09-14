@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:           flatpak
-Version:        1.0.1
+Version:        1.0.2
 Release:        1
 Summary:        Application deployment framework for desktop apps
 Group:        	System/Base
@@ -42,7 +42,7 @@ BuildRequires:  libcap-devel
 BuildRequires:  libdwarf-devel
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  systemd
+BuildRequires:  systemd-macros
 BuildRequires:  xsltproc
 BuildRequires:  xmlto
 BuildRequires:  bison
@@ -100,8 +100,7 @@ Requires:       %{libname} = %{version}-%{release}
 This package contains libflatpak GObject libraries.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
@@ -111,7 +110,7 @@ This package contains libflatpak GObject libraries.
 	--with-systemdsystemunitdir=%{_systemunitdir} \
                  --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
-%make V=1
+%make_build V=1
 
 
 %install
@@ -147,8 +146,8 @@ flatpak remote-list --system &> /dev/null || :
 %{_mandir}/man1/flatpak*.1*
 %{_mandir}/man5/flatpak*.5*
 %{_localstatedir}/lib/flatpak
-%{_prefix}/lib/systemd/user/flatpak*.service
-%{_prefix}/lib/systemd/user/dbus.service.d/flatpak.conf
+%{_userunitdir}/flatpak*.service
+%{_userunitdir}/dbus.service.d/flatpak.conf
 %{_systemunitdir}/flatpak*.service
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/flatpak
