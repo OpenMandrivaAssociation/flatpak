@@ -109,7 +109,8 @@ This package contains libflatpak GObject libraries.
 
 %configure --with-dwarf-header=%{_includedir}/libdwarf --with-priv-mode=none \
 	--with-systemdsystemunitdir=%{_unitdir} \
-                 --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
+	--enable-sandboxed-triggers --enable-xauth \
+        --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
 %make_build V=1
 
