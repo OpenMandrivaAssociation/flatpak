@@ -12,56 +12,56 @@
 
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
-Name:           flatpak
-Version:        1.0.5
-Release:        1
-Summary:        Application deployment framework for desktop apps
-Group:        	System/Base
-License:        LGPLv2+
-URL:            https://flatpak.org/
-Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
-Source1:        flatpak-init.service
-Source2:        flatpak.tmpfiles
-BuildRequires:  pkgconfig(fuse)
-BuildRequires:  pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(libarchive) >= 2.8.0
-BuildRequires:  pkgconfig(libelf) >= 0.8.12
-BuildRequires:  pkgconfig(libsoup-2.4)
-BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
+Name:		flatpak
+Version:	1.1.2
+Release:	1
+Summary:	Application deployment framework for desktop apps
+Group:		System/Base
+License:	LGPLv2+
+URL:		https://flatpak.org/
+Source0:	https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1:	flatpak-init.service
+Source2:	flatpak.tmpfiles
+BuildRequires:	pkgconfig(fuse)
+BuildRequires:	pkgconfig(gio-unix-2.0)
+BuildRequires:	pkgconfig(json-glib-1.0)
+BuildRequires:	pkgconfig(libarchive) >= 2.8.0
+BuildRequires:	pkgconfig(libelf) >= 0.8.12
+BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:	pkgconfig(appstream-glib) >= 0.5.10
-BuildRequires:  pkgconfig(polkit-gobject-1)
-BuildRequires:  pkgconfig(libseccomp)
-BuildRequires:  pkgconfig(xau)
-BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  gobject-introspection-devel >= 1.40.0
-BuildRequires:  docbook-dtds
-BuildRequires:  docbook-style-xsl
-BuildRequires:  intltool
-BuildRequires:  attr-devel
-BuildRequires:  libcap-devel
-BuildRequires:  libdwarf-devel
-BuildRequires:  gpgme-devel
-BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  systemd-macros
-BuildRequires:  xsltproc
-BuildRequires:  xmlto
-BuildRequires:  bison
-BuildRequires:  byacc
-BuildRequires:  bubblewrap >= %{bubblewrap_version}
-Requires(post):       rpm-helper
+BuildRequires:	pkgconfig(polkit-gobject-1)
+BuildRequires:	pkgconfig(libseccomp)
+BuildRequires:	pkgconfig(xau)
+BuildRequires:	pkgconfig(gtk-doc)
+BuildRequires:	gobject-introspection-devel >= 1.40.0
+BuildRequires:	docbook-dtds
+BuildRequires:	docbook-style-xsl
+BuildRequires:	intltool
+BuildRequires:	attr-devel
+BuildRequires:	libcap-devel
+BuildRequires:	libdwarf-devel
+BuildRequires:	gpgme-devel
+BuildRequires:	pkgconfig(libsystemd)
+BuildRequires:	systemd-macros
+BuildRequires:	xsltproc
+BuildRequires:	xmlto
+BuildRequires:	bison
+BuildRequires:	byacc
+BuildRequires:	bubblewrap >= %{bubblewrap_version}
+Requires(post):	rpm-helper
 # Needed for the document portal.
-Requires:       fuse
+Requires:	fuse
 # TLS support
 Requires:	glib-networking
 
 # Needed for confinement
-Requires:       bubblewrap >= %{bubblewrap_version}
-Requires:       ostree >= %{ostree_version}
+Requires:	bubblewrap >= %{bubblewrap_version}
+Requires:	ostree >= %{ostree_version}
 
 # Required to ensure flatpak functions
-Requires:       %{libname} = %{version}-%{release}
-Requires:       %{girlib} = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{girlib} = %{EVRD}
 
 %description
 flatpak is a system for building, distributing and running sandboxed desktop
@@ -69,33 +69,32 @@ applications on Linux. See https://wiki.gnome.org/Projects/SandboxedApps for
 more information.
 
 %package -n %{devname}
-Summary:        Development files for %{name}
-Group:          Development/C
-License:        LGPLv2+
-Provides:       %{name}-devel = %{version}-%{release}
-Provides:       %{name}-devel = %{version}-%{release}
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{libname} = %{version}-%{release}
-Requires:       %{girlib} = %{version}-%{release}
+Summary:	Development files for %{name}
+Group:		Development/C
+License:	LGPLv2+
+Provides:	%{name}-devel = %{EVRD}
+Requires:	%{name} = %{EVRD}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{girlib} = %{EVRD}
 
 %description -n %{devname}
 This package contains the pkg-config file and development headers for %{name}.
 
 %package -n %{libname}
-Summary:        Libraries for %{name}
-Group:          System/Libraries
-License:        LGPLv2+
-Requires:       bubblewrap >= %{bubblewrap_version}
-Requires:       ostree >= %{ostree_version}
+Summary:	Libraries for %{name}
+Group:		System/Libraries
+License:	LGPLv2+
+Requires:	bubblewrap >= %{bubblewrap_version}
+Requires:	ostree >= %{ostree_version}
 
 %description -n %{libname}
 This package contains libflatpak.
 
 %package -n %{girlib}
-Summary:        GObject Introspection Libraries for %{name}
-Group:          System/Libraries
-License:        LGPLv2+
-Requires:       %{libname} = %{version}-%{release}
+Summary:	GObject Introspection Libraries for %{name}
+Group:		System/Libraries
+License:	LGPLv2+
+Requires:	%{libname} = %{EVRD}
 
 %description -n %{girlib}
 This package contains libflatpak GObject libraries.
