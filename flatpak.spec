@@ -7,111 +7,100 @@
 %global devname %mklibname %{name} -d
 
 # Minimum dependent components
-%global bubblewrap_version 0.1.7
-%global ostree_version 2017.1
+%global bubblewrap_version 0.3.1
+%global ostree_version 2019.1
 
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
-Name:           flatpak
-Version:        0.8.7
-Release:        2
-Summary:        Application deployment framework for desktop apps
-Group:        	System/Base
-License:        LGPLv2+
-URL:            https://flatpak.org/
-Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
-
-BuildRequires:  pkgconfig(fuse)
-BuildRequires:  pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(libarchive) >= 2.8.0
-BuildRequires:  pkgconfig(libelf) >= 0.8.12
-BuildRequires:  pkgconfig(libsoup-2.4)
-BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
-BuildRequires:  pkgconfig(polkit-gobject-1)
-BuildRequires:  pkgconfig(libseccomp)
-BuildRequires:  pkgconfig(xau)
-BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  gobject-introspection-devel >= 1.40.0
-BuildRequires:  docbook-dtds
-BuildRequires:  docbook-style-xsl
-BuildRequires:  intltool
-BuildRequires:  attr-devel
-BuildRequires:  libcap-devel
-BuildRequires:  libdwarf-devel
-BuildRequires:  pkgconfig(systemd)
-BuildRequires:  xsltproc
-BuildRequires:  xmlto
-BuildRequires:  bubblewrap >= %{bubblewrap_version}
-
+Name:		flatpak
+Version:	1.1.2
+Release:	1
+Summary:	Application deployment framework for desktop apps
+Group:		System/Base
+License:	LGPLv2+
+URL:		https://flatpak.org/
+Source0:	https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1:	flatpak-init.service
+Source2:	flatpak.tmpfiles
+BuildRequires:	pkgconfig(fuse)
+BuildRequires:	pkgconfig(gio-unix-2.0)
+BuildRequires:	pkgconfig(json-glib-1.0)
+BuildRequires:	pkgconfig(libarchive) >= 2.8.0
+BuildRequires:	pkgconfig(libelf) >= 0.8.12
+BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(ostree-1) >= %{ostree_version}
+BuildRequires:	pkgconfig(appstream-glib) >= 0.5.10
+BuildRequires:	pkgconfig(polkit-gobject-1)
+BuildRequires:	pkgconfig(libseccomp)
+BuildRequires:	pkgconfig(xau)
+BuildRequires:	pkgconfig(gtk-doc)
+BuildRequires:	gobject-introspection-devel >= 1.40.0
+BuildRequires:	docbook-dtds
+BuildRequires:	docbook-style-xsl
+BuildRequires:	intltool
+BuildRequires:	attr-devel
+BuildRequires:	libcap-devel
+BuildRequires:	libdwarf-devel
+BuildRequires:	gpgme-devel
+BuildRequires:	pkgconfig(libsystemd)
+BuildRequires:	systemd-macros
+BuildRequires:	xsltproc
+BuildRequires:	xmlto
+BuildRequires:	bison
+BuildRequires:	byacc
+BuildRequires:	bubblewrap >= %{bubblewrap_version}
+Requires(post):	rpm-helper
 # Needed for the document portal.
-Requires:       fuse
+Requires:	fuse
 # TLS support
 Requires:	glib-networking
 
 # Needed for confinement
-Requires:       bubblewrap >= %{bubblewrap_version}
-Requires:       ostree >= %{ostree_version}
+Requires:	bubblewrap >= %{bubblewrap_version}
+Requires:	ostree >= %{ostree_version}
 
 # Required to ensure flatpak functions
-Requires:       %{libname} = %{version}-%{release}
-Requires:       %{girlib} = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{girlib} = %{EVRD}
 
 %description
 flatpak is a system for building, distributing and running sandboxed desktop
 applications on Linux. See https://wiki.gnome.org/Projects/SandboxedApps for
 more information.
 
-%package builder
-Summary:        Build helper for %{name}
-License:        LGPLv2+
-Requires:       %{name} = %{version}-%{release}
-Requires:       bzr
-Requires:       git-core
-Requires:       patch
-Requires:       binutils
-Requires:       tar
-Requires:       unzip
-
-%description builder
-flatpak-builder is a tool that makes it easy to build applications and their
-dependencies by automating the configure && make && make install steps.
-
 %package -n %{devname}
-Summary:        Development files for %{name}
-Group:          Development/C
-License:        LGPLv2+
-Provides:       %{name}-devel = %{version}-%{release}
-Provides:       %{name}-devel = %{version}-%{release}
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{libname} = %{version}-%{release}
-Requires:       %{girlib} = %{version}-%{release}
+Summary:	Development files for %{name}
+Group:		Development/C
+License:	LGPLv2+
+Provides:	%{name}-devel = %{EVRD}
+Requires:	%{name} = %{EVRD}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{girlib} = %{EVRD}
 
 %description -n %{devname}
 This package contains the pkg-config file and development headers for %{name}.
 
 %package -n %{libname}
-Summary:        Libraries for %{name}
-Group:          System/Libraries
-License:        LGPLv2+
-Requires:       bubblewrap >= %{bubblewrap_version}
-Requires:       ostree >= %{ostree_version}
+Summary:	Libraries for %{name}
+Group:		System/Libraries
+License:	LGPLv2+
+Requires:	bubblewrap >= %{bubblewrap_version}
+Requires:	ostree >= %{ostree_version}
 
 %description -n %{libname}
 This package contains libflatpak.
 
 %package -n %{girlib}
-Summary:        GObject Introspection Libraries for %{name}
-Group:          System/Libraries
-License:        LGPLv2+
-Requires:       %{libname} = %{version}-%{release}
+Summary:	GObject Introspection Libraries for %{name}
+Group:		System/Libraries
+License:	LGPLv2+
+Requires:	%{libname} = %{EVRD}
 
 %description -n %{girlib}
 This package contains libflatpak GObject libraries.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
@@ -119,17 +108,24 @@ This package contains libflatpak GObject libraries.
 
 %configure --with-dwarf-header=%{_includedir}/libdwarf --with-priv-mode=none \
 	--with-systemdsystemunitdir=%{_unitdir} \
-                 --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
+	--enable-sandboxed-triggers --enable-xauth \
+        --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
-%make V=1
-
+%make_build V=1
 
 %install
 %make_install
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
-rm -f %{buildroot}%{_libdir}/libflatpak.la
+
+install -m 0644 %{SOURCE1} -D %{buildroot}%{_unitdir}/flatpak-init.service
+install -m 0644 %{SOURCE2} -D %{buildroot}%{_tmpfilesdir}/flatpak.conf
+
+install -d %{buildroot}%{_presetdir}
+cat > %{buildroot}%{_presetdir}/86-%{name}.preset << EOF
+enable %{name}-init.service
+EOF
 
 %find_lang %{name}
 
@@ -139,54 +135,42 @@ flatpak remote-list --system &> /dev/null || :
 
 %files -f %{name}.lang
 %{_bindir}/flatpak
-%{_datadir}/bash-completion
-%{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak.xml
-%{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Documents.xml
-%{_datadir}/dbus-1/interfaces/org.freedesktop.impl.portal.PermissionStore.xml
-%{_datadir}/dbus-1/services/org.freedesktop.Flatpak.service
-%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.PermissionStore.service
-%{_datadir}/dbus-1/services/org.freedesktop.portal.Documents.service
-%{_datadir}/dbus-1/system-services/org.freedesktop.Flatpak.SystemHelper.service
-# Co-own directory.
-%{_datadir}/gdm/env.d
-%{_datadir}/%{name}
-%{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.policy
-%{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.rules
-%{_libexecdir}/flatpak-dbus-proxy
-%{_libexecdir}/flatpak-session-helper
+%{_bindir}/flatpak-bisect
+%{_bindir}/flatpak-coredumpctl
 %{_libexecdir}/flatpak-system-helper
-%{_libexecdir}/xdg-document-portal
-%{_libexecdir}/xdg-permission-store
-%dir %{_localstatedir}/lib/flatpak
-%dir %{_sysconfdir}/flatpak/remotes.d
-%{_mandir}/man1/%{name}*.1*
-%{_mandir}/man5/%{name}-metadata.5*
-%{_mandir}/man5/%{name}-flatpakref.5*
-%{_mandir}/man5/%{name}-flatpakrepo.5*
-%exclude %{_mandir}/man1/flatpak-builder.1*
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
+%{_libexecdir}/flatpak-session-helper
+%{_libexecdir}/flatpak-portal
+%{_libexecdir}/flatpak-dbus-proxy
+%{_datadir}/bash-completion/completions/flatpak
+%{_datadir}/zsh/site-functions/_flatpak
+%{_datadir}/flatpak
+%{_datadir}/dbus-1/interfaces/org.freedesktop.Flatpak*
+%{_datadir}/dbus-1/interfaces/org.freedesktop.portal.Flatpak*
+%{_datadir}/dbus-1/system-services/org.freedesktop.Flatpak*
+%{_datadir}/dbus-1/services/org.freedesktop.Flatpak.*
+%{_datadir}/dbus-1/services/org.freedesktop.portal.Flatpak.*
+%{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
+%{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
+%{_mandir}/man1/flatpak*.1*
+%{_mandir}/man5/flatpak*.5*
+%{_localstatedir}/lib/flatpak
+%{_presetdir}/86-%{name}.preset
+%{_userunitdir}/flatpak*.service
+%{_userunitdir}/dbus.service.d/flatpak.conf
+%{_unitdir}/flatpak*.service
+%{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
-%{_systemunitdir}/flatpak-system-helper.service
-%{_userunitdir}/flatpak-session-helper.service
-%{_userunitdir}/xdg-document-portal.service
-%{_userunitdir}/xdg-permission-store.service
-# Co-own directory.
-%{_userunitdir}/dbus.service.d
-
-
-%files builder
-%{_bindir}/flatpak-builder
-%{_mandir}/man1/flatpak-builder.1*
+%{_sysconfdir}/flatpak
+%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
+# FIXME this probably needs to move to where sddm can see it?
+%{_datadir}/gdm
+%doc %{_docdir}/%{name}
 
 %files -n %{devname}
-%doc COPYING
-%doc NEWS README.md
-%doc %{_pkgdocdir}
-%{_datadir}/gir-1.0/Flatpak-%{girapi}.gir
-%{_datadir}/gtk-doc/
-%{_includedir}/%{name}/
-%{_libdir}/libflatpak.so
-%{_libdir}/pkgconfig/%{name}.pc
+%{_includedir}/flatpak
+%{_libdir}/lib*.so
+%{_libdir}/pkgconfig/*.pc
+%doc %{_datadir}/gtk-doc/html/flatpak
 
 %files -n %{libname}
 %{_libdir}/libflatpak.so.%{libmajor}
@@ -194,3 +178,4 @@ flatpak remote-list --system &> /dev/null || :
 
 %files -n %{girlib}
 %{_libdir}/girepository-1.0/Flatpak-%{girapi}.typelib
+%{_datadir}/gir-1.0/Flatpak-%{girapi}.gir
