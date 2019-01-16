@@ -7,8 +7,8 @@
 %global devname %mklibname %{name} -d
 
 # Minimum dependent components
-%global bubblewrap_version 0.1.8
-%global ostree_version 2017.14
+%global bubblewrap_version 0.3.1
+%global ostree_version 2019.1
 
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
@@ -112,7 +112,6 @@ This package contains libflatpak GObject libraries.
         --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
 %make_build V=1
-
 
 %install
 %make_install
