@@ -14,7 +14,7 @@
 
 Name:		flatpak
 Version:	1.1.2
-Release:	1
+Release:	0.1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -43,7 +43,7 @@ BuildRequires:	libcap-devel
 BuildRequires:	libdwarf-devel
 BuildRequires:	gpgme-devel
 BuildRequires:	pkgconfig(libsystemd)
-BuildRequires:	systemd-macros
+BuildRequires:	systemd
 BuildRequires:	xsltproc
 BuildRequires:	xmlto
 BuildRequires:	bison
@@ -100,7 +100,8 @@ Requires:	%{libname} = %{EVRD}
 This package contains libflatpak GObject libraries.
 
 %prep
-%autosetup -p1
+%setup -q
+%apply_patches
 
 %build
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
@@ -111,10 +112,10 @@ This package contains libflatpak GObject libraries.
 	--enable-sandboxed-triggers --enable-xauth \
         --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
 
-%make_build V=1
+%make V=1
 
 %install
-%make_install
+%makeinstall_std
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
