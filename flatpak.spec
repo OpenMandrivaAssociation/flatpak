@@ -156,7 +156,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_localstatedir}/lib/flatpak
 %{_presetdir}/86-%{name}.preset
 %{_userunitdir}/flatpak*.service
-%{_userunitdir}/dbus.service.d/flatpak.conf
+#{_userunitdir}/dbus.service.d/flatpak.conf
 %{_unitdir}/flatpak*.service
 %{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
