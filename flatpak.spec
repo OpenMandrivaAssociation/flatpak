@@ -141,6 +141,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-session-helper
 %{_libexecdir}/flatpak-portal
 %{_libexecdir}/flatpak-dbus-proxy
+%{_libexecdir}/flatpak-validate-icon
 %{_datadir}/bash-completion/completions/flatpak
 %{_datadir}/zsh/site-functions/_flatpak
 %{_datadir}/flatpak
@@ -158,6 +159,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_userunitdir}/flatpak*.service
 #{_userunitdir}/dbus.service.d/flatpak.conf
 %{_unitdir}/flatpak*.service
+%{_systemd_user_env_generator_dir}/60-flatpak
 %{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/flatpak
