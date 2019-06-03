@@ -142,6 +142,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-portal
 %{_libexecdir}/flatpak-dbus-proxy
 %{_libexecdir}/flatpak-validate-icon
+%{_libexecdir}/revokefs-fuse
 %{_datadir}/bash-completion/completions/flatpak
 %{_datadir}/zsh/site-functions/_flatpak
 %{_datadir}/flatpak
