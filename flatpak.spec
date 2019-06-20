@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.2.4
+Version:	1.4.0
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
@@ -142,6 +142,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-portal
 %{_libexecdir}/flatpak-dbus-proxy
 %{_libexecdir}/flatpak-validate-icon
+%{_libexecdir}/revokefs-fuse
 %{_datadir}/bash-completion/completions/flatpak
 %{_datadir}/zsh/site-functions/_flatpak
 %{_datadir}/flatpak
