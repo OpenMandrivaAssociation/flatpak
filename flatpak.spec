@@ -103,8 +103,14 @@ This package contains libflatpak GObject libraries.
 %autosetup -p1
 
 %build
+# as of Flatpak 1.5.2 and LLVM/Clang 9.0.1-0.20191216.1 build failed with many error like:
+#error: passing 'typeof (*(&g_define_type_id__volatile)) *' (aka 'volatile unsigned long *') 
+#to parameter of type 'gsize *' (aka 'unsigned long *') discards qualifiers 
+#[-Werror,-Wincompatible-pointer-types-discards-qualifiers]
+# Switch to GCC fix it
 export CC=gcc
 export CXX=g++
+
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
  # User namespace support is sufficient.
 
@@ -144,6 +150,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-portal
 %{_libexecdir}/flatpak-dbus-proxy
 %{_libexecdir}/flatpak-validate-icon
+%{_libexecdir}/flatpak-oci-authenticator
 %{_libexecdir}/revokefs-fuse
 %{_datadir}/bash-completion/completions/flatpak
 %{_datadir}/zsh/site-functions/_flatpak
@@ -153,6 +160,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/dbus-1/system-services/org.freedesktop.Flatpak*
 %{_datadir}/dbus-1/services/org.freedesktop.Flatpak.*
 %{_datadir}/dbus-1/services/org.freedesktop.portal.Flatpak.*
+%{_datadir}/dbus-1/services/org.flatpak.Authenticator.Oci.service
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
 %{_mandir}/man1/flatpak*.1*
