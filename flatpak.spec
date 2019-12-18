@@ -103,6 +103,8 @@ This package contains libflatpak GObject libraries.
 %autosetup -p1
 
 %build
+export CC=gcc
+export CXX=g++
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
  # User namespace support is sufficient.
 
