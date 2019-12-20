@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.5.2
+Version:	1.6.0
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
@@ -108,8 +108,8 @@ This package contains libflatpak GObject libraries.
 #to parameter of type 'gsize *' (aka 'unsigned long *') discards qualifiers 
 #[-Werror,-Wincompatible-pointer-types-discards-qualifiers]
 # Switch to GCC fix it
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
  # User namespace support is sufficient.
