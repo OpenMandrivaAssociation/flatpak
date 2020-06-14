@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.7.1
+Version:	1.7.3
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
@@ -163,6 +163,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/dbus-1/services/org.flatpak.Authenticator.Oci.service
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
+%{_datadir}/fish/vendor_completions.d/flatpak.fish
 %{_mandir}/man1/flatpak*.1*
 %{_mandir}/man5/flatpak*.5*
 %{_localstatedir}/lib/flatpak
@@ -178,6 +179,7 @@ flatpak remote-list --system &> /dev/null || :
 # FIXME this probably needs to move to where sddm can see it?
 %{_datadir}/gdm
 %doc %{_docdir}/%{name}
+%{_sysusersdir}/flatpak.conf
 
 %files -n %{devname}
 %{_includedir}/flatpak
