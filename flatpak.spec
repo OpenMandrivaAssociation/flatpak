@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.8.1
+Version:	1.8.2
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
@@ -39,7 +39,7 @@ BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
 BuildRequires:	intltool
 BuildRequires:	attr-devel
-BuildRequires:	libcap-devel
+BuildRequires:	pkgconfig(libcap)
 BuildRequires:	libdwarf-devel
 BuildRequires:	gpgme-devel
 BuildRequires:	pkgconfig(libsystemd)
