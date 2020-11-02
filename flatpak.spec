@@ -34,6 +34,7 @@ BuildRequires:	pkgconfig(polkit-gobject-1)
 BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(xau)
 BuildRequires:	pkgconfig(gtk-doc)
+BuildRequires:	python3dist(pyparsing)
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
