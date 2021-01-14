@@ -171,6 +171,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_presetdir}/86-%{name}.preset
 %{_userunitdir}/flatpak*.service
 #{_userunitdir}/dbus.service.d/flatpak.conf
+%{_userunitdir}/system-environment-generators/60-flatpak-system-only
 %{_unitdir}/flatpak*.service
 %{_systemd_user_env_generator_dir}/60-flatpak
 %{_tmpfilesdir}/flatpak.conf
