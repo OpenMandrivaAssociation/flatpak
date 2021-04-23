@@ -14,7 +14,7 @@
 
 Name:		flatpak
 Version:	1.10.2
-Release:	1
+Release:	2
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -50,7 +50,6 @@ BuildRequires:	xmlto
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	bubblewrap >= %{bubblewrap_version}
-Requires(post):	rpm-helper
 # Needed for the document portal.
 Requires:	fuse
 # TLS support
@@ -63,6 +62,7 @@ Requires:	ostree >= %{ostree_version}
 # Required to ensure flatpak functions
 Requires:	%{libname} = %{EVRD}
 Requires:	%{girlib} = %{EVRD}
+%systemd_requires
 
 %description
 flatpak is a system for building, distributing and running sandboxed desktop
@@ -104,21 +104,17 @@ This package contains libflatpak GObject libraries.
 %autosetup -p1
 
 %build
-# as of Flatpak 1.5.2 and LLVM/Clang 9.0.1-0.20191216.1 build failed with many error like:
-#error: passing 'typeof (*(&g_define_type_id__volatile)) *' (aka 'volatile unsigned long *') 
-#to parameter of type 'gsize *' (aka 'unsigned long *') discards qualifiers 
-#[-Werror,-Wincompatible-pointer-types-discards-qualifiers]
-# Switch to GCC fix it
-#export CC=gcc
-#export CXX=g++
-
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
  # User namespace support is sufficient.
 
-%configure --with-dwarf-header=%{_includedir}/libdwarf --with-priv-mode=none \
+%configure \
+	--with-dwarf-header=%{_includedir}/libdwarf \
+	--with-priv-mode=none \
 	--with-systemdsystemunitdir=%{_unitdir} \
-	--enable-sandboxed-triggers --enable-xauth \
-        --with-system-bubblewrap --enable-docbook-docs $CONFIGFLAGS)
+	--enable-sandboxed-triggers \
+	--enable-xauth \
+	--with-system-bubblewrap \
+	--enable-docbook-docs $CONFIGFLAGS)
 
 %make_build V=1
 
