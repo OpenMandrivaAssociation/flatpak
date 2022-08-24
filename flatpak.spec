@@ -22,6 +22,7 @@ URL:		https://flatpak.org/
 Source0:	https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:	flatpak-init.service
 Source2:	flatpak.tmpfiles
+BuildRequires:	pkgconfig(appstream)
 BuildRequires:	pkgconfig(fuse)
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(json-glib-1.0)
