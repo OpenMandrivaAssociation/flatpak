@@ -185,7 +185,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_includedir}/flatpak
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
-%doc %{_datadir}/gtk-doc/html/flatpak
+#doc %{_datadir}/gtk-doc/html/flatpak
 
 %files -n %{libname}
 %{_libdir}/libflatpak.so.%{libmajor}
