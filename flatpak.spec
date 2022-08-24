@@ -13,8 +13,8 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.12.7
-Release:	3
+Version:	1.14.0
+Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -22,10 +22,12 @@ URL:		https://flatpak.org/
 Source0:	https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:	flatpak-init.service
 Source2:	flatpak.tmpfiles
+BuildRequires:	pkgconfig(appstream)
 BuildRequires:	pkgconfig(fuse)
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libarchive) >= 2.8.0
+BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libelf) >= 0.8.12
 BuildRequires:	pkgconfig(libsoup-2.4)
 BuildRequires:	pkgconfig(ostree-1) >= %{ostree_version}
@@ -161,6 +163,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
 %{_datadir}/fish/vendor_completions.d/flatpak.fish
+%{_datadir}/fish/vendor_conf.d/flatpak.fish
 %{_mandir}/man1/flatpak*.1*
 %{_mandir}/man5/flatpak*.5*
 %{_localstatedir}/lib/flatpak
@@ -183,7 +186,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_includedir}/flatpak
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
-%doc %{_datadir}/gtk-doc/html/flatpak
+#doc %{_datadir}/gtk-doc/html/flatpak
 
 %files -n %{libname}
 %{_libdir}/libflatpak.so.%{libmajor}
