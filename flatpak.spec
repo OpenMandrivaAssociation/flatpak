@@ -163,6 +163,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
 %{_datadir}/fish/vendor_completions.d/flatpak.fish
+%{_datadir}/fish/vendor_conf.d/flatpak.fish
 %{_mandir}/man1/flatpak*.1*
 %{_mandir}/man5/flatpak*.5*
 %{_localstatedir}/lib/flatpak
