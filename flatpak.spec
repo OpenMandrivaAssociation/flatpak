@@ -180,6 +180,7 @@ flatpak remote-list --system &> /dev/null || :
 # FIXME this probably needs to move to where sddm can see it?
 #{_datadir}/gdm
 %doc %{_docdir}/%{name}
+%doc %{_datadir}/gtk-doc/html/
 %{_sysusersdir}/flatpak.conf
 
 %files -n %{devname}
