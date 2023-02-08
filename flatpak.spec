@@ -13,8 +13,8 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.15.1
-Release:	2
+Version:	1.15.2
+Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
