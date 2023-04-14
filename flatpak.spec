@@ -32,7 +32,6 @@ BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libarchive) >= 2.8.0
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libelf) >= 0.8.12
-BuildRequires:	pkgconfig(libsoup-2.4)
 BuildRequires:	pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:	pkgconfig(appstream-glib) >= 0.5.10
 BuildRequires:	pkgconfig(polkit-gobject-1)
