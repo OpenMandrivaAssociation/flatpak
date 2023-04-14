@@ -1,0 +1,14 @@
+diff -up flatpak-1.15.2/tests/make-test-runtime.sh.omv~ flatpak-1.15.2/tests/make-test-runtime.sh
+--- flatpak-1.15.2/tests/make-test-runtime.sh.omv~	2023-04-14 16:24:41.070261556 +0200
++++ flatpak-1.15.2/tests/make-test-runtime.sh	2023-04-14 16:24:53.458372141 +0200
+@@ -87,8 +87,8 @@ chmod a+x ${DIR}/usr/bin/runtime_hello.s
+ # We copy the C.UTF8 locale and call it en_US. Its a bit of a lie, but
+ # the real en_US locale is often not available, because its in the
+ # local archive.
+-mkdir -p ${DIR}/usr/lib/locale/
+-cp -r /usr/lib/locale/C.* ${DIR}/usr/lib/locale/en_US
++mkdir -p ${DIR}/usr/share/locale/
++cp -r /usr/share/locale/C.* ${DIR}/usr/share/locale/en_US
+ 
+ if [ x$COLLECTION_ID != x ]; then
+     collection_args=--collection-id=${COLLECTION_ID}

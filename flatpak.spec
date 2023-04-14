@@ -13,8 +13,8 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.15.2
-Release:	2
+Version:	1.15.4
+Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -24,6 +24,7 @@ Source1:	flatpak-init.service
 Source2:	flatpak.tmpfiles
 # (tpg) wget https://dl.flathub.org/repo/flathub.flatpakrepo
 Source3:	https://dl.flathub.org/repo/flathub.flatpakrepo
+Patch0:		flatpak-1.15.2-compile.patch
 BuildRequires:	pkgconfig(appstream)
 BuildRequires:	pkgconfig(fuse)
 BuildRequires:	pkgconfig(gio-unix-2.0)
@@ -38,7 +39,10 @@ BuildRequires:	pkgconfig(polkit-gobject-1)
 BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(xau)
 BuildRequires:	pkgconfig(gtk-doc)
-BuildRequires:	pkgconfig(malcontent-0)
+# OPTIONAL dep -- sadly if included, introduces a
+# GTK 4 dependency we really don't want to have in
+# Plasma or even LXQt
+#BuildRequires:	pkgconfig(malcontent-0)
 BuildRequires:	python3dist(pyparsing)
 BuildRequires:	gobject-introspection-devel >= 1.40.0
 BuildRequires:	docbook-dtds
@@ -55,6 +59,7 @@ BuildRequires:	xmlto
 BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	bubblewrap >= %{bubblewrap_version}
+BuildRequires:	meson
 # Needed for the document portal.
 Requires:	fuse
 # TLS support
@@ -107,12 +112,13 @@ This package contains libflatpak GObject libraries.
 
 %prep
 %autosetup -p1
+%meson \
+	-Dmalcontent=disabled \
+	-Dselinux_module=disabled \
+	-Dsystem_bubblewrap=%{_bindir}/bwrap
 
-%build
-(if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
-# User namespace support is sufficient.
-
-%configure \
+%if 0
+From old autoconf setup -- doesn't seem to be needed anymore:   '
 	--with-dwarf-header=%{_includedir}/libdwarf \
 	--with-priv-mode=none \
 	--with-systemdsystemunitdir=%{_unitdir} \
@@ -120,11 +126,14 @@ This package contains libflatpak GObject libraries.
 	--enable-xauth \
 	--with-system-bubblewrap \
 	--enable-docbook-docs $CONFIGFLAGS)
+%endif
 
-%make_build V=1
+
+%build
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
