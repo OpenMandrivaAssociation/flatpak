@@ -61,6 +61,7 @@ BuildRequires:	bison
 BuildRequires:	byacc
 BuildRequires:	bubblewrap >= %{bubblewrap_version}
 BuildRequires:	meson
+BuildRequires:	polkit
 # Needed for the document portal.
 Requires:	fuse
 # TLS support
