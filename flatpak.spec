@@ -37,6 +37,7 @@ BuildRequires:	pkgconfig(appstream-glib) >= 0.5.10
 BuildRequires:	pkgconfig(polkit-gobject-1)
 BuildRequires:	pkgconfig(libseccomp)
 BuildRequires:	pkgconfig(xau)
+BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(gtk-doc)
 # OPTIONAL dep -- sadly if included, introduces a
 # GTK 4 dependency we really don't want to have in
