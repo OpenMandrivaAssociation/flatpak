@@ -41,6 +41,7 @@ BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(dconf)
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(wayland-client)
+BuildRequires:	pkgconfig(wayland-protocols)
 # OPTIONAL dep -- sadly if included, introduces a
 # GTK 4 dependency we really don't want to have in
 # Plasma or even LXQt
