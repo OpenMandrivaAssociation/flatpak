@@ -65,6 +65,7 @@ BuildRequires:	bubblewrap >= %{bubblewrap_version}
 BuildRequires:	meson
 BuildRequires:	polkit
 BuildRequires:	socat
+BuildRequires:  fuse2
 # Needed for the document portal.
 Requires:	fuse
 # TLS support
