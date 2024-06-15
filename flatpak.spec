@@ -26,7 +26,7 @@ Source2:	flatpak.tmpfiles
 Source3:	https://dl.flathub.org/repo/flathub.flatpakrepo
 Patch0:		flatpak-1.15.2-compile.patch
 
-BuildRequires:	pkgconfig(appstream) = 1..0.3
+BuildRequires:	pkgconfig(appstream) = 1.0.3
 BuildRequires:	pkgconfig(fuse)
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(json-glib-1.0)
