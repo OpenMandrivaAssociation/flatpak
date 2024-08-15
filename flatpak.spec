@@ -122,7 +122,7 @@ This package contains libflatpak GObject libraries.
 %meson \
 	-Dmalcontent=disabled \
 	-Dselinux_module=disabled \
-	-Dsystem_bubblewrap=%{_bindir}/bwrap
+	-Dsystem_bubblewrap=bwrap
 
 %if 0
 From old autoconf setup -- doesn't seem to be needed anymore:   '
