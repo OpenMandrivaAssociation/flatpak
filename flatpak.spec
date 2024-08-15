@@ -199,6 +199,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_systemd_user_env_generator_dir}/60-flatpak
 %{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
+%{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/flatpak
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
 # FIXME this probably needs to move to where sddm can see it?
