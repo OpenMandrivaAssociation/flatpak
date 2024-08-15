@@ -173,7 +173,6 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-system-helper
 %{_libexecdir}/flatpak-session-helper
 %{_libexecdir}/flatpak-portal
-%{_libexecdir}/flatpak-dbus-proxy
 %{_libexecdir}/flatpak-validate-icon
 %{_libexecdir}/flatpak-oci-authenticator
 %{_libexecdir}/revokefs-fuse
