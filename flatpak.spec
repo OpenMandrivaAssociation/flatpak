@@ -13,8 +13,8 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.15.8
-Release:	2
+Version:	1.15.10
+Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -49,6 +49,7 @@ BuildRequires:	pkgconfig(wayland-protocols)
 #BuildRequires:	pkgconfig(malcontent-0)
 BuildRequires:	python3dist(pyparsing)
 BuildRequires:	gobject-introspection-devel >= 1.40.0
+BuildRequires:	xdg-dbus-proxy
 BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
 BuildRequires:	intltool
@@ -122,7 +123,8 @@ This package contains libflatpak GObject libraries.
 %meson \
 	-Dmalcontent=disabled \
 	-Dselinux_module=disabled \
-	-Dsystem_bubblewrap=%{_bindir}/bwrap
+	-Dsystem_bubblewrap=bwrap \
+ 	-Dsystem_dbus_proxy=xdg-dbus-proxy
 
 %if 0
 From old autoconf setup -- doesn't seem to be needed anymore:   '
@@ -171,7 +173,6 @@ flatpak remote-list --system &> /dev/null || :
 %{_libexecdir}/flatpak-system-helper
 %{_libexecdir}/flatpak-session-helper
 %{_libexecdir}/flatpak-portal
-%{_libexecdir}/flatpak-dbus-proxy
 %{_libexecdir}/flatpak-validate-icon
 %{_libexecdir}/flatpak-oci-authenticator
 %{_libexecdir}/revokefs-fuse
@@ -198,6 +199,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_systemd_user_env_generator_dir}/60-flatpak
 %{_tmpfilesdir}/flatpak.conf
 %{_sysconfdir}/profile.d/flatpak.sh
+%{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/flatpak
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
 # FIXME this probably needs to move to where sddm can see it?
