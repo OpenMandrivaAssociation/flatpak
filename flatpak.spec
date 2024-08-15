@@ -49,6 +49,7 @@ BuildRequires:	pkgconfig(wayland-protocols)
 #BuildRequires:	pkgconfig(malcontent-0)
 BuildRequires:	python3dist(pyparsing)
 BuildRequires:	gobject-introspection-devel >= 1.40.0
+BuildRequires:	xdg-dbus-proxy
 BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
 BuildRequires:	intltool
@@ -122,7 +123,8 @@ This package contains libflatpak GObject libraries.
 %meson \
 	-Dmalcontent=disabled \
 	-Dselinux_module=disabled \
-	-Dsystem_bubblewrap=bwrap
+	-Dsystem_bubblewrap=bwrap \
+ 	-Dsystem_dbus_proxy=xdg-dbus-proxy
 
 %if 0
 From old autoconf setup -- doesn't seem to be needed anymore:   '
