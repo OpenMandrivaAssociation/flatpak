@@ -14,7 +14,7 @@
 
 Name:		flatpak
 Version:	1.15.11
-Release:	1
+Release:	2
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -72,6 +72,11 @@ BuildRequires:  fuse2
 Requires:	fuse
 # TLS support
 Requires:	glib-networking
+
+# For some apps like google earth
+Requires:	xdg-dbus-proxy
+
+Requires:	librsvg
 
 # Needed for confinement
 Requires:	bubblewrap >= %{bubblewrap_version}
