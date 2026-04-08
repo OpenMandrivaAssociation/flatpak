@@ -190,6 +190,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/dbus-1/services/org.freedesktop.Flatpak.*
 %{_datadir}/dbus-1/services/org.freedesktop.portal.Flatpak.*
 %{_datadir}/dbus-1/services/org.flatpak.Authenticator.Oci.service
+%{_datadir}/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
 %{_datadir}/fish/vendor_completions.d/flatpak.fish
@@ -206,7 +207,6 @@ flatpak remote-list --system &> /dev/null || :
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/flatpak
-#{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
 # FIXME this probably needs to move to where sddm can see it?
 #{_datadir}/gdm
 %doc %{_docdir}/%{name}
