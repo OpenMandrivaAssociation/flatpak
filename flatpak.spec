@@ -13,8 +13,8 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.16.3
-Release:	2
+Version:	1.17.4
+Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
 License:	LGPLv2+
@@ -24,7 +24,7 @@ Source1:	flatpak-init.service
 Source2:	flatpak.tmpfiles
 # (tpg) wget https://dl.flathub.org/repo/flathub.flatpakrepo
 Source3:	https://dl.flathub.org/repo/flathub.flatpakrepo
-Patch0:		flatpak-1.15.2-compile.patch
+#Patch0:		flatpak-1.15.2-compile.patch
 
 BuildRequires:	pkgconfig(appstream) >= 1.0.3
 BuildRequires:	pkgconfig(fuse)
@@ -190,6 +190,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_datadir}/dbus-1/services/org.freedesktop.Flatpak.*
 %{_datadir}/dbus-1/services/org.freedesktop.portal.Flatpak.*
 %{_datadir}/dbus-1/services/org.flatpak.Authenticator.Oci.service
+%{_datadir}/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
 %{_datadir}/polkit-1/rules.d/org.freedesktop.Flatpak.*
 %{_datadir}/polkit-1/actions/org.freedesktop.Flatpak.*
 %{_datadir}/fish/vendor_completions.d/flatpak.fish
@@ -206,7 +207,6 @@ flatpak remote-list --system &> /dev/null || :
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/flatpak
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
 # FIXME this probably needs to move to where sddm can see it?
 #{_datadir}/gdm
 %doc %{_docdir}/%{name}
