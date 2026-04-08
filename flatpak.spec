@@ -206,7 +206,7 @@ flatpak remote-list --system &> /dev/null || :
 %{_sysconfdir}/profile.d/flatpak.sh
 %{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/flatpak
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
+#{_sysconfdir}/dbus-1/system.d/org.freedesktop.Flatpak*
 # FIXME this probably needs to move to where sddm can see it?
 #{_datadir}/gdm
 %doc %{_docdir}/%{name}
