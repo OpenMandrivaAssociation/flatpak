@@ -24,7 +24,7 @@ Source1:	flatpak-init.service
 Source2:	flatpak.tmpfiles
 # (tpg) wget https://dl.flathub.org/repo/flathub.flatpakrepo
 Source3:	https://dl.flathub.org/repo/flathub.flatpakrepo
-Patch0:		flatpak-1.15.2-compile.patch
+#Patch0:		flatpak-1.15.2-compile.patch
 
 BuildRequires:	pkgconfig(appstream) >= 1.0.3
 BuildRequires:	pkgconfig(fuse)
