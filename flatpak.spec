@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.17.6
+Version:	1.17.7
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
@@ -99,7 +99,10 @@ License:	LGPLv2+
 Provides:	%{name}-devel = %{EVRD}
 Requires:	%{name} = %{EVRD}
 Requires:	%{libname} = %{EVRD}
-Requires:	%{girlib} = %{EVRD}
+Requires:	(%{girlib} = %{EVRD} if %{mklibname -d gtk+3.0})
+Requires:	(%{girlib} = %{EVRD} if %{mklibname -d gtk4.0})
+# FIXME why doesn't the pkgconfig dependency generator see this?
+Requires:	pkgconfig(libsystemd)
 
 %description -n %{devname}
 This package contains the pkg-config file and development headers for %{name}.
