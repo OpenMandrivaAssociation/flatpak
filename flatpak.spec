@@ -13,7 +13,7 @@
 %{?!_pkgdocdir:%define _pkgdocdir %{_docdir}/%{name}}
 
 Name:		flatpak
-Version:	1.17.7
+Version:	1.18.0
 Release:	1
 Summary:	Application deployment framework for desktop apps
 Group:		System/Base
