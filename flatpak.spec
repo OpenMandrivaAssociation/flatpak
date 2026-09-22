@@ -147,6 +147,14 @@ From old autoconf setup -- doesn't seem to be needed anymore:   '
 
 
 %build
+# lib64archive-devel's .pc sets libdir to ${exec_prefix}/lib. gtk-doc's
+# scanner then links with -L/usr/lib, and lld follows the i386 libc.so
+# script there. Give pkg-config a copy that points at %{_lib}.
+mkdir -p pkgconfig-override
+sed 's|\${exec_prefix}/lib|\${exec_prefix}/%{_lib}|' \
+	"$(pkg-config --variable=pcfiledir libarchive)/libarchive.pc" \
+	> pkgconfig-override/libarchive.pc
+export PKG_CONFIG_PATH="$PWD/pkgconfig-override${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
 %meson_build
 
 %install
